@@ -18,6 +18,7 @@ import thumbnails from './ProjectThumbnails'
 import socials from '../data/socials'
 import { useLanguage } from '../context/LanguageContext'
 import RevealText from './RevealText'
+import Features2Carousel from './Features2Carousel'
 
 function ProjectModal({ project, onClose }) {
   const { t } = useLanguage()
