@@ -15,6 +15,7 @@ import {
 import skillGroups from '../data/skills'
 import { useLanguage } from '../context/LanguageContext'
 import RevealText from './RevealText'
+import Features10OrbitMap from './Features10OrbitMap'
 
 const iconMap = {
   Code2,
@@ -185,6 +186,9 @@ export default function Skills() {
           <span>{t('skills_hint')}</span>
         </motion.div>
       </div>
+
+      {/* React Bits Pro Features 10: Integration map with orbiting nodes */}
+      <Features10OrbitMap />
 
       {/* Category filter pills */}
       <div className="mt-10 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">

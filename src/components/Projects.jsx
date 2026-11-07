@@ -338,6 +338,9 @@ export default function Projects() {
         </p>
       </div>
 
+      {/* React Bits Pro Features 2: Auto-cycling carousel with glass cards */}
+      <Features2Carousel onOpenModal={(proj) => setActiveProject(proj)} />
+
       {/* Projects Grid */}
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project, i) => (
