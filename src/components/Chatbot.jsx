@@ -24,7 +24,15 @@ function getReply(raw) {
   }
 
   if (/(skill|tech|stack|language|tool)/.test(msg)) {
-    const cats = skillGroups.map((g) => `${g.category} (${g.skills.slice(0, 3).join(', ')})`).join('; ')
+    const cats = skillGroups
+      .map(
+        (g) =>
+          `${g.category} (${g.skills
+            .map((s) => (typeof s === 'string' ? s : s.name))
+            .slice(0, 3)
+            .join(', ')})`
+      )
+      .join('; ')
     return `Bhuvanesh works across: ${cats}.`
   }
 

@@ -1,11 +1,6 @@
-import { useEffect, useState } from 'react'
-import Lenis from 'lenis'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
+import { useState } from 'react'
 import { ThemeProvider } from './context/ThemeContext'
 import { LanguageProvider } from './context/LanguageContext'
-import { setLenis } from './lib/scroll'
 
 import Loader from './components/Loader'
 import Navbar from './components/Navbar'
@@ -23,31 +18,8 @@ import Chatbot from './components/Chatbot'
 import ScrollTopButton from './components/ScrollTopButton'
 import CustomCursor from './components/CustomCursor'
 
-gsap.registerPlugin(ScrollTrigger)
-
 export default function App() {
   const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.15,
-      smoothWheel: true,
-      wheelMultiplier: 1.5,
-      touchMultiplier: 2,
-    })
-    setLenis(lenis)
-
-    const raf = (time) => lenis.raf(time)
-    gsap.ticker.add(raf)
-    gsap.ticker.lagSmoothing(0)
-    lenis.on('scroll', ScrollTrigger.update)
-
-    return () => {
-      gsap.ticker.remove(raf)
-      lenis.destroy()
-      setLenis(null)
-    }
-  }, [])
 
   return (
     <ThemeProvider>
@@ -57,10 +29,8 @@ export default function App() {
 
         <div style={{ visibility: loaded ? 'visible' : 'hidden' }}>
           <Navbar />
-          <div className="sticky top-0 z-0">
-            <Hero />
-          </div>
-          <main className="relative z-10 bg-bg rounded-t-[40px] shadow-[0_-40px_80px_-40px_rgba(0,0,0,0.5)]">
+          <Hero />
+          <main className="relative bg-bg">
             <MarqueeStrip />
             <Stats />
             <About />

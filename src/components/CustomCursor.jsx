@@ -19,10 +19,10 @@ export default function CustomCursor() {
       y.set(e.clientY)
     }
     const onOver = (e) => {
-      if (e.target.closest && e.target.closest('a, button, [data-cursor]')) setHovering(true)
+      if (e.target.closest && e.target.closest('a, button, [data-cursor], [role="button"]')) setHovering(true)
     }
     const onOut = (e) => {
-      if (e.target.closest && e.target.closest('a, button, [data-cursor]')) setHovering(false)
+      if (e.target.closest && e.target.closest('a, button, [data-cursor], [role="button"]')) setHovering(false)
     }
 
     window.addEventListener('mousemove', move)
