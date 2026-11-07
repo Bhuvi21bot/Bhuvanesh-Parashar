@@ -982,6 +982,7 @@ const TechText = ({
   return (
     <div
       ref={containerRef}
+      data-cursor
       className={`relative w-full h-full touch-pan-y select-none ${className}`.trim()}
       style={style}
       role="img"
@@ -993,3 +994,4 @@ const TechText = ({
 };
 
 export default TechText;
+
