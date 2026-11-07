@@ -1,25 +1,16 @@
-// Tiny singleton so any component can drive the same Lenis instance
-// instead of mixing native scrollIntoView with Lenis (which caused jumpiness).
-let lenisInstance = null
+// Native smooth scrolling helper with navbar offset support
 
-export function setLenis(instance) {
-  lenisInstance = instance
+export function setLenis() {
+  // Kept for backward compatibility
 }
 
-export function scrollToId(id, offset = -90) {
+export function scrollToId(id, offset = -80) {
   const el = document.getElementById(id)
   if (!el) return
-  if (lenisInstance) {
-    lenisInstance.scrollTo(el, { offset, duration: 1.3 })
-  } else {
-    el.scrollIntoView({ behavior: 'smooth' })
-  }
+  const y = el.getBoundingClientRect().top + window.scrollY + offset
+  window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
 }
 
 export function scrollToTop() {
-  if (lenisInstance) {
-    lenisInstance.scrollTo(0, { duration: 1.3 })
-  } else {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }

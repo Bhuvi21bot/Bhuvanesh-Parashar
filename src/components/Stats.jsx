@@ -30,7 +30,9 @@ function CountUp({ target, suffix = '', pad = true, duration = 1.1 }) {
 
 export default function Stats() {
   const { t } = useLanguage()
-  const techCount = new Set(skillGroups.flatMap((g) => g.skills)).size
+  const techCount = new Set(
+    skillGroups.flatMap((g) => g.skills.map((s) => (typeof s === 'string' ? s : s.name)))
+  ).size
 
   const stats = [
     { target: projects.length, label: t('stats_1_label') },
