@@ -1,6 +1,12 @@
 import skillGroups from '../data/skills'
 
-const allSkills = [...new Set(skillGroups.flatMap((g) => g.skills))]
+const allSkills = [
+  ...new Set(
+    skillGroups.flatMap((g) =>
+      g.skills.map((s) => (typeof s === 'string' ? s : s.name))
+    )
+  ),
+]
 const track = [...allSkills, ...allSkills]
 
 export default function MarqueeStrip() {
@@ -9,7 +15,7 @@ export default function MarqueeStrip() {
       <div className="flex w-max marquee-track">
         {track.map((s, i) => (
           <span key={i} className="tag-mono text-muted flex items-center gap-10 pr-10 shrink-0">
-            {s}
+            {typeof s === 'string' ? s : s.name}
             <span className="text-ink/15">/</span>
           </span>
         ))}
