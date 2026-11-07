@@ -5,7 +5,7 @@ import socials from '../data/socials'
 import { scrollToId } from '../lib/scroll'
 import { useMagnetic } from '../lib/magnetic'
 import { useLanguage } from '../context/LanguageContext'
-import RevealText from './RevealText'
+import TechText from './TechText'
 
 export default function Hero() {
   const { t } = useLanguage()
@@ -30,18 +30,45 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="eyebrow mb-7"
+          className="eyebrow mb-4"
         >
           {t('hero_eyebrow')}
         </motion.span>
 
-        <h1 className="font-display font-medium leading-[0.95] tracking-tight text-hero text-ink">
-          <RevealText>Bhuvanesh</RevealText>
-          <br />
-          <RevealText delay={0.12} className="italic text-gradient">Parashar</RevealText>
-        </h1>
+        <h1 className="sr-only">Bhuvanesh Parashar</h1>
 
-        <div className="mt-8 flex items-center justify-center gap-2 font-mono text-sm sm:text-base text-muted">
+        <div className="w-full h-[180px] sm:h-[260px] md:h-[340px] lg:h-[420px] relative max-w-[1300px] mx-auto text-ink">
+          <TechText
+            text="Bhuvanesh Parashar"
+            fontWeight={600}
+            fontSize={150}
+            reveal="letter"
+            dashLength={4}
+            dashGap={2}
+            specks={15}
+            intro="none"
+            introDuration={2}
+            clickKick
+            guides={false}
+            fontFamily=""
+            letterSpacing={-0.05}
+            accentColor="#4E85BF"
+            reach={200}
+            softness={0.7}
+            lineStyle="dashed"
+            strokeWidth={1.5}
+            speed={1}
+            bounce={0.4}
+            selection
+            labels
+            color="currentColor"
+            align="center"
+            draggable
+            sweep
+          />
+        </div>
+
+        <div className="mt-4 flex items-center justify-center gap-2 font-mono text-sm sm:text-base text-muted">
           <span>&gt;</span>
           <span className="inline-block text-center text-ink" style={{ minWidth: '15ch' }}>
             <AnimatePresence mode="wait">
@@ -68,7 +95,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-12 flex flex-wrap items-center justify-center gap-3"
+          className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
           <motion.button
             ref={mag1.ref}
