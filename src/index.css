@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark-first palette with a secondary alternating "tone" surface used to
+   give sections rhythm (instead of literal light/white sections). */
+:root {
+  --c-bg: 5 5 5;          /* #050505 */
+  --c-surface: 12 12 12;  /* #0C0C0C */
+  --c-card: 17 17 17;     /* #111111 */
+  --c-tone: 14 14 16;     /* alternate section tone, slightly cooler */
+  --c-ink: 248 248 248;   /* #F8F8F8 */
+  --c-muted: 161 161 170; /* #A1A1AA */
+  --glass-bg: 17 17 17;
+  --glass-alpha: 0.6;
+  --glass-strong-alpha: 0.82;
+}
+
+html.light {
+  --c-bg: 250 250 249;
+  --c-surface: 255 255 255;
+  --c-card: 255 255 255;
+  --c-tone: 244 244 242;
+  --c-ink: 13 13 13;
+  --c-muted: 100 100 108;
+  --glass-bg: 255 255 255;
+  --glass-alpha: 0.65;
+  --glass-strong-alpha: 0.88;
+}
+
+::selection {
+  background: #4E85BF;
+  color: #fff;
+}
+
+html { background: rgb(var(--c-bg)); }
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  background: rgb(var(--c-bg));
+  transition: background-color 0.4s ease;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgb(var(--c-bg)); }
+::-webkit-scrollbar-thumb { background: rgb(var(--c-muted) / 0.4); border-radius: 4px; }
+
+@layer utilities {
+  .text-gradient {
+    background-image: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* flat surfaces — no blur, no glow, per the reference's real styling */
+  .card-flat {
+    background: rgb(var(--c-card));
+    border: 1px solid rgb(255 255 255 / 0.08);
+  }
+  html.light .card-flat { border: 1px solid rgb(0 0 0 / 0.08); }
+
+  /* navbar/chatbot keep a touch of blur for legibility while scrolling */
+  .glass {
+    background: rgb(var(--glass-bg) / var(--glass-alpha));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgb(255 255 255 / 0.08);
+  }
+  html.light .glass { border: 1px solid rgb(0 0 0 / 0.08); }
+  .glass-strong {
+    background: rgb(var(--glass-bg) / var(--glass-strong-alpha));
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+  html.light .glass-strong { border: 1px solid rgb(0 0 0 / 0.1); }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    font-size: 0.72rem;
+    color: rgb(var(--c-muted));
+  }
+
+  .tag-mono {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+  }
+
+  /* typography scale — confident, not oversized (per the reference video) */
+  .text-hero { font-size: clamp(3.25rem, 9vw, 7.5rem); }
+  .text-section-heading { font-size: clamp(2rem, 4.5vw, 3.75rem); }
+
+  .section-padding { padding-top: clamp(90px, 9vw, 140px); padding-bottom: clamp(90px, 9vw, 140px); }
+
+  .shadow-glow { box-shadow: 0 0 40px -10px rgba(78, 133, 191, 0.35); }
+  .shadow-glow-orange { box-shadow: 0 0 40px -10px rgba(217, 105, 42, 0.4); }
+
+  /* visible alternating section rhythm — color wash instead of literal light/dark */
+  .tone-blue {
+    background: radial-gradient(ellipse 900px 520px at 12% -8%, rgba(78, 133, 191, 0.16), transparent 62%), rgb(var(--c-bg));
+  }
+  .tone-orange {
+    background: radial-gradient(ellipse 900px 520px at 88% -8%, rgba(217, 105, 42, 0.16), transparent 62%), rgb(var(--c-bg));
+  }
+}
+
+.animate-pulse-soft { animation: pulse-soft 1.8s ease-in-out infinite; }
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-scroll 26s linear infinite;
+}
+
+html.custom-cursor, html.custom-cursor * {
+  cursor: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
