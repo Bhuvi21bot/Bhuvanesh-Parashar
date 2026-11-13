@@ -10,8 +10,9 @@ import {
   CheckCircle2,
   Cpu,
   Trophy,
-  UserCheck,
   Sparkles,
+  SlidersHorizontal,
+  LayoutGrid,
 } from 'lucide-react'
 import projects from '../data/projects'
 import thumbnails from './ProjectThumbnails'
@@ -315,43 +316,75 @@ function ProjectCard({ project, onOpenModal, index }) {
 export default function Projects() {
   const { t } = useLanguage()
   const [activeProject, setActiveProject] = useState(null)
+  const [viewMode, setViewMode] = useState('carousel') // 'carousel' or 'grid'
 
   return (
     <section id="projects" className="relative section-padding px-6 max-w-[1400px] mx-auto tone-blue border-t hairline">
-      <div>
-        <span className="eyebrow">{t('projects_eyebrow')}</span>
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mt-4 font-display text-section-heading text-ink tracking-tight"
-        >
-          <RevealText>{t('projects_heading_1')}</RevealText>{' '}
-          <RevealText delay={0.06} className="italic">
-            {t('projects_heading_2')}
-          </RevealText>
-          .
-        </motion.h2>
-        <p className="mt-3 text-muted text-sm sm:text-base max-w-xl">
-          {t('projects_sub')}
-        </p>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <span className="eyebrow">{t('projects_eyebrow')}</span>
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mt-4 font-display text-section-heading text-ink tracking-tight"
+          >
+            <RevealText>{t('projects_heading_1')}</RevealText>{' '}
+            <RevealText delay={0.06} className="italic">
+              {t('projects_heading_2')}
+            </RevealText>
+            .
+          </motion.h2>
+          <p className="mt-3 text-muted text-sm sm:text-base max-w-xl">
+            {t('projects_sub')}
+          </p>
+        </div>
+
+        {/* View Switcher Pill */}
+        <div className="flex items-center p-1 rounded-full card-flat border hairline">
+          <button
+            onClick={() => setViewMode('carousel')}
+            data-cursor
+            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+              viewMode === 'carousel'
+                ? 'bg-ink text-bg shadow-sm'
+                : 'text-muted hover:text-ink'
+            }`}
+          >
+            <SlidersHorizontal size={13} />
+            <span>Carousel</span>
+          </button>
+          <button
+            onClick={() => setViewMode('grid')}
+            data-cursor
+            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+              viewMode === 'grid'
+                ? 'bg-ink text-bg shadow-sm'
+                : 'text-muted hover:text-ink'
+            }`}
+          >
+            <LayoutGrid size={13} />
+            <span>Grid</span>
+          </button>
+        </div>
       </div>
 
-      {/* React Bits Pro Features 2: Auto-cycling carousel with glass cards */}
-      <Features2Carousel onOpenModal={(proj) => setActiveProject(proj)} />
-
-      {/* Projects Grid */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {projects.map((project, i) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            index={i}
-            onOpenModal={(proj) => setActiveProject(proj)}
-          />
-        ))}
-      </div>
+      {/* Main View: Features 2 Auto-Cycling Glass Cards Carousel OR Grid View */}
+      {viewMode === 'carousel' ? (
+        <Features2Carousel onOpenModal={(proj) => setActiveProject(proj)} />
+      ) : (
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+          {projects.map((project, i) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={i}
+              onOpenModal={(proj) => setActiveProject(proj)}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Pop-Up Modal */}
       <AnimatePresence>
